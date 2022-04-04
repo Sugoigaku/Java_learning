@@ -37,6 +37,9 @@
         </dependency>
     </dependencies>
 
+
+
+
     <!--  在build中配置resource，来防止资源导出失败的问题  -->
     <build>
         <resources>
