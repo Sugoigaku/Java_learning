@@ -11,8 +11,8 @@
         <version>2.1.4.RELEASE</version>
     </parent>
 
-    <groupId>cn.itcast.mp</groupId>
-    <artifactId>itcast-mp-springboot</artifactId>
+    <groupId>com.chen.mp</groupId>
+    <artifactId>mp-springboot</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <dependencies>
