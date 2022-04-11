@@ -13,7 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.List;
+import java.io.Serializable;
+import java.util.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -87,6 +88,55 @@ public class UserMapperTest {
         user.setPassword("899999");
 
         int result = userMapper.update(user, updateWrapper);
+        System.out.println(result);
+    }
+
+    /*** 根据 ID 删除 ** @param id 主键ID */
+//    int deleteById(Serializable id);
+    @Test
+    public void testDeleteById(){
+
+        int result = userMapper.deleteById(4L);
+        System.out.println(result);
+    }
+
+    /*** 根据 columnMap 条件，删除记录 ** @param columnMap 表字段 map 对象 */
+//    int deleteByMap(@Param(Constants.COLUMN_MAP) Map<String, Object> columnMap);
+    @Test
+    public void testDeleteByMap(){
+        Map<String, Object> map = new HashMap<>();
+        map.put("age", 24);
+        map.put("name", "孙七");
+
+//        Preparing: DELETE FROM tb_user WHERE name = ? AND age = ?
+        int result = userMapper.deleteByMap(map);
+        System.out.println(result);
+    }
+
+    /**
+     *  根据 entity 条件，删除记录
+     *  wrapper 实体对象封装操作类（可以为 null） */
+//    int delete(@Param(Constants.WRAPPER) Wrapper<T> wrapper);
+    @Test
+    public void testDelete(){
+
+        QueryWrapper<User> wrapper = new QueryWrapper<User>();
+        wrapper.gt("age", 200);
+
+//        DELETE FROM tb_user WHERE age > ?
+        int result = userMapper.delete(wrapper);
+        System.out.println(result);
+    }
+
+    /**
+     *  删除（根据ID 批量删除）
+     *  idList 主键ID列表(不能为 null 以及 empty) */
+//    int deleteBatchIds(@Param(Constants.COLLECTION) Collection<? extends Serializable> idList);
+    @Test
+    public void testDeleteBatchIds(){
+
+//        DELETE FROM tb_user WHERE id IN ( ? , ? )
+        int result = userMapper.deleteBatchIds(Arrays.asList(9L,10L));
         System.out.println(result);
     }
 }
