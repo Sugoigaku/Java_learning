@@ -3,7 +3,9 @@ package com.chen.mp;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.chen.mp.mapper.UserMapper;
 import com.chen.mp.pojo.User;
 import org.apache.ibatis.annotations.Param;
@@ -50,7 +52,7 @@ public class UserMapperTest {
     }
 
     @Test
-    public void testSelectOne(){
+    public void testSelect1(){
         System.out.println(userMapper.selectById(3));
     }
 
@@ -138,5 +140,64 @@ public class UserMapperTest {
 //        DELETE FROM tb_user WHERE id IN ( ? , ? )
         int result = userMapper.deleteBatchIds(Arrays.asList(9L,10L));
         System.out.println(result);
+    }
+
+    /*** 根据 entity 条件，查询一条记录 ** @param queryWrapper 实体对象封装操作类（可以为 null） */
+//    T selectOne(@Param(Constants.WRAPPER) Wrapper<T> queryWrapper);
+    @Test
+    public void testSelectOne(){
+
+        QueryWrapper<User> wrapper = new QueryWrapper<User>();
+        wrapper.eq("user_name", "lisi");
+
+        //根据条件查询一条数据，如果结果超过一条会报错
+//        org.mybatis.spring.MyBatisSystemException:
+//        nested exception is org.apache.ibatis.exceptions.TooManyResultsException:
+//        Expected one result (or null) to be returned by selectOne(), but found: 4
+
+//        SELECT id,user_name,name,age,email AS mail FROM tb_user WHERE user_name = ?
+        User user = this.userMapper.selectOne(wrapper);
+        System.out.println(user);
+    }
+
+    /*** 根据 Wrapper 条件，查询总记录数 ** @param queryWrapper 实体对象封装操作类（可以为 null） */
+//    Integer selectCount(@Param(Constants.WRAPPER) Wrapper<T> queryWrapper);
+    @Test
+    public void testSelectCount(){
+
+        QueryWrapper<User> wrapper = new QueryWrapper<User>();
+        wrapper.eq("user_name", "binbin");
+
+//        SELECT COUNT( 1 ) FROM tb_user WHERE user_name = ?
+        Integer integer = userMapper.selectCount(wrapper);
+        System.out.println(integer);
+    }
+
+    /**
+     * 根据 entity 条件，查询全部记录（并翻页）
+     * page 分页查询条件（可以为 RowBounds.DEFAULT）
+     * queryWrapper 实体对象封装操作类（可以为 null） */
+//    IPage<T> selectPage(IPage<T> page, @Param(Constants.WRAPPER) Wrapper<T> queryWrapper);
+    @Test
+    public void testSelectPage(){
+
+//        要先在MybatisPlusConfig中配置插件
+
+        QueryWrapper<User> wrapper = new QueryWrapper<User>();
+        wrapper.gt("id", 5L);
+
+//    public Page(long current, long size) {
+//        this(current, size, 0L);
+//    }
+        Page<User> page = new Page<>(2,3);
+
+        IPage<User> userIPage = userMapper.selectPage(page, wrapper);
+        System.out.println("数据总条数：" + userIPage.getTotal());
+        System.out.println("总页数：" + userIPage.getPages());
+
+        List<User> records = userIPage.getRecords();
+        for (User record : records) {
+            System.out.println(record);
+        }
     }
 }
