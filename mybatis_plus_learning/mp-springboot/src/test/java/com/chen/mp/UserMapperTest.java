@@ -200,4 +200,12 @@ public class UserMapperTest {
             System.out.println(record);
         }
     }
+
+    @Test
+    public void testFindAll(){
+        List<User> all = userMapper.findAll();
+        for (User user : all) {
+            System.out.println(user);
+        }
+    }
 }

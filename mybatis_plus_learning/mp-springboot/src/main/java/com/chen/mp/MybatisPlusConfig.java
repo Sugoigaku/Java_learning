@@ -12,8 +12,9 @@ public class MybatisPlusConfig {
     /*
     * 分页插件
     */
-    @Bean
-    public PaginationInterceptor paginationInterceptor(){
-        return new PaginationInterceptor();
-    }
+//    之后在mybatis-config.xml文件中配置
+//    @Bean
+//    public PaginationInterceptor paginationInterceptor(){
+//        return new PaginationInterceptor();
+//    }
 }
