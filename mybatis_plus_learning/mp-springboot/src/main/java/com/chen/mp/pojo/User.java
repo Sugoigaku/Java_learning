@@ -11,10 +11,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName("tb_user")
+//在application.properties进行了全局配置
+//@TableName("tb_user")
 public class User {
 //@TableId = 指定id的各种格式（这里可能有点问题）
-    @TableId(type= IdType.NONE)
+//    @TableId(type= IdType.NONE)
     private Long id;
     private String userName;
 //    这个数据不会从数据库回填到java实例
