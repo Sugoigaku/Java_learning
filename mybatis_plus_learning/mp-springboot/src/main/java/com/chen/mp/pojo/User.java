@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,9 +12,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-//在application.properties进行了全局配置
-//@TableName("tb_user")
-public class User {
+//@TableName("tb_user")  //在application.properties进行了全局配置
+public class User extends Model<User> {//继承Model类之后，可以用ActiveRecord
 //@TableId = 指定id的各种格式（这里可能有点问题）
 //    @TableId(type= IdType.NONE)
     private Long id;
