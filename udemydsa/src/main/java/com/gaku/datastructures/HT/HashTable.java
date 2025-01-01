@@ -87,12 +87,11 @@ public class HashTable {
     }
 
     public ArrayList<String> keys() {
-        ArrayList<String> allKeys = new ArrayList<String>();
+        ArrayList<String> allKeys = new ArrayList<>();
 
         Node temp;
         for (int i = 0; i < dataMap.length; i++) {
             temp = dataMap[i];
-            if (temp == null) continue;
             while (temp != null) {
                 allKeys.add(temp.key);
                 temp = temp.next;
