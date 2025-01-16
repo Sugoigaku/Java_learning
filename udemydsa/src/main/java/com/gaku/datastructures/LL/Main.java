@@ -32,29 +32,32 @@ public class Main {
         // System.out.println("\nLL after insert(4) at end:");
         // myLinkedList.printList();
 
-        LinkedList myLinkedList = new LinkedList(1);
-        myLinkedList.append(2);
-        myLinkedList.append(3);
-        myLinkedList.append(4);
-        myLinkedList.append(5);
+        // LinkedList myLinkedList = new LinkedList(1);
+        // myLinkedList.append(2);
+        // myLinkedList.append(3);
+        // myLinkedList.append(4);
+        // myLinkedList.append(5);
 
-        System.out.println("LL before remove():");
-        myLinkedList.printList();
+        // System.out.println("LL before remove():");
+        // myLinkedList.printList();
 
-        System.out.println("\nRemoved node:");
-        System.out.println(myLinkedList.remove(2).value);
-        System.out.println("LL after remove() in middle:");
-        myLinkedList.printList();
+        // System.out.println("\nRemoved node:");
+        // System.out.println(myLinkedList.remove(2).value);
+        // System.out.println("LL after remove() in middle:");
+        // myLinkedList.printList();
 
-        System.out.println("\nRemoved node:");
-        System.out.println(myLinkedList.remove(0).value);
-        System.out.println("LL after remove() of first node:");
-        myLinkedList.printList();
+        // System.out.println("\nRemoved node:");
+        // System.out.println(myLinkedList.remove(0).value);
+        // System.out.println("LL after remove() of first node:");
+        // myLinkedList.printList();
 
-        System.out.println("\nRemoved node:");
-        System.out.println(myLinkedList.remove(2).value);
-        System.out.println("LL after remove() of last node:");
-        myLinkedList.printList();
+        // System.out.println("\nRemoved node:");
+        // System.out.println(myLinkedList.remove(2).value);
+        // System.out.println("LL after remove() of last node:");
+        // myLinkedList.printList();
 
+        DLinkedList dll = new DLinkedList(new int[]{1, 2, 3, 4, 5});
+        dll.printList();
+        dll.reversePrintList();
     }
 }
