@@ -54,7 +54,7 @@ public class CycleArray<T> {
         }
 
         // Because the start points to the first valid data, we need to move it first.
-        // don't forget +size, because when start == 0, start -1 = -1, not the index we wanted
+        // Don't forget to add +size, because when start == 0, start - 1 = -1, which is not the desired index.
         start = (start - 1 + size) % size;
         arr[start] = val;
         count++;
@@ -89,7 +89,8 @@ public class CycleArray<T> {
             throw new IllegalStateException("Array is empty");
         }
 
-        end = (end - 1) % size;
+        // Don't forget to add +size, because when end == 0, end - 1 = -1, which is not the desired index.
+        end = (end - 1 + size) % size;
         arr[end] = null;
         count--;
 
