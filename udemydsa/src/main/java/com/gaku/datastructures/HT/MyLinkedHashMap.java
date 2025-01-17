@@ -80,6 +80,7 @@ public class MyLinkedHashMap<K, V> {
         return map.size();
     }
 
+    // tool method
     private void addLastNode(Node<K, V> newNode) {
         Node<K, V> temp = tail.prev;
 
