@@ -19,6 +19,7 @@ public class MyLinkedHashMap<K, V> {
 
     private final Node<K, V> head, tail;
 
+    // store nodes in the map
     private final HashMap<K, Node<K, V>> map = new HashMap<>();
 
     public MyLinkedHashMap() {
