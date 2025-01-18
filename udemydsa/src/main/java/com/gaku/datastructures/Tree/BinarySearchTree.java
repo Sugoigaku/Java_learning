@@ -1,4 +1,4 @@
-package com.gaku.datastructures.BST;
+package com.gaku.datastructures.Tree;
 
 public class BinarySearchTree {
 
