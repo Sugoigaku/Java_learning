@@ -15,10 +15,20 @@ public class MultiplexTree<V> {
     private static class TreeNode<V> {
         V val;
         List<TreeNode<V>> children;
-    
+
         TreeNode(V val) {
             this.val = val;
             this.children = new ArrayList<>();
+        }
+    }
+
+    private static class TreeNodeWithState<V> {
+        TreeNode<V> node;
+        int depth;
+
+        TreeNodeWithState(TreeNode<V> node, int depth) {
+            this.node = node;
+            this.depth = depth;
         }
     }
 
@@ -56,49 +66,121 @@ public class MultiplexTree<V> {
         }
     }
 
-    public void printTree() {
-        printT(root);
+    public void dfs() {
+        traverse(root);
     }
-    // Method to print the tree in a structured way (iterative)
-    public void printT(TreeNode<V> root) {
-        if (root == null) {
-            System.out.println("Tree is empty");
+
+    private void traverse(TreeNode<V> node) {
+        // if null , return
+        if (node == null) {
+            return;
+        }
+
+        // // preorder
+        // System.out.println(node.val);
+
+        for (TreeNode<V> child : node.children) {
+            traverse(child);
+        }
+
+        // postorder
+        System.out.println(node.val);
+    }
+
+    public void bfs() {
+        // levelOrderTraverse0(root);
+        // levelOrderTraverse1(root);
+        levelOrderTraverse2(root);
+    }
+
+    private void levelOrderTraverse0(TreeNode<V> node) {
+        if (node == null) {
             return;
         }
 
         Queue<TreeNode<V>> queue = new LinkedList<>();
-        queue.add(root);
+        queue.offer(node);
 
         while (!queue.isEmpty()) {
-            TreeNode<V> current = queue.poll();
-            System.out.print(current.val + ": ");
+            TreeNode<V> cur = queue.poll();
+            System.out.println(cur.val);
 
-            for (TreeNode<V> child : current.children) {
-                System.out.print(child.val + " ");
-                queue.add(child);
+            for (TreeNode<V> child : cur.children) {
+                queue.offer(child);
+            }
+        }
+    }
+
+    private void levelOrderTraverse1(TreeNode<V> node) {
+        if (node == null) {
+            return;
+        }
+
+        Queue<TreeNode<V>> queue = new LinkedList<>();
+        queue.offer(node);
+        int depth = 1;
+
+        while (!queue.isEmpty()) {
+
+            int levelSize = queue.size();
+
+            for (int i = 0; i < levelSize; i++) {
+
+                TreeNode<V> cur = queue.poll();
+                System.out.println("depth = " + depth + ", val = " + cur.val);
+
+                for (TreeNode<V> child : cur.children) {
+                    queue.offer(child);
+                }
             }
 
-            System.out.println();
+            depth++;
+        }
+    }
+
+    private void levelOrderTraverse2(TreeNode<V> node) {
+        if (node == null) {
+            return;
+        }
+
+        Queue<TreeNodeWithState<V>> queue = new LinkedList<>();
+        queue.offer(new TreeNodeWithState<>(node, 1));
+
+        while (!queue.isEmpty()) {
+
+            int levelSize = queue.size();
+
+            for (int i = 0; i < levelSize; i++) {
+
+                TreeNodeWithState<V> cur = queue.poll();
+                TreeNode<V> treeNodeode = cur.node;
+                int depth = cur.depth;
+                System.out.println("depth = " + depth + ", val = " + treeNodeode.val);
+
+                for (TreeNode<V> child : treeNodeode.children) {
+                    queue.offer(new TreeNodeWithState<>(child, depth + 1));
+                }
+            }
         }
     }
 
     public static void main(String[] args) {
         MultiplexTree<String> mTree = new MultiplexTree<>();
-        
 
         // Example HashMap representing the tree
         HashMap<String, List<String>> map = new HashMap<>();
         map.put("A", Arrays.asList("B", "C", "D")); // A -> B, C, D
-        map.put("B", Arrays.asList("E", "F"));      // B -> E, F
-        map.put("C", Arrays.asList("G"));           // C -> G
-        map.put("D", Arrays.asList());              // D has no children
-        map.put("E", Arrays.asList("H", "I"));      // E -> H, I
+        map.put("B", Arrays.asList("E", "F")); // B -> E, F
+        map.put("C", Arrays.asList("G")); // C -> G
+        map.put("D", Arrays.asList()); // D has no children
+        map.put("E", Arrays.asList("H", "I")); // E -> H, I
 
         // Build the tree with "A" as the root
         mTree.buildTreeFromMap(map, "A");
 
         // Print the tree structure
-        System.out.println("Tree Structure:");
-       mTree.printTree();
+        // System.out.println("Tree Structure:");
+        // mTree.dfs();
+        mTree.bfs();
     }
 }
