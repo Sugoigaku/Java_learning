@@ -6,3 +6,4 @@
 !README.md
 *.json
 build
+.DS_Store
